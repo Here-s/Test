@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 import time
 
@@ -86,6 +87,25 @@ time.sleep(5)
 # send_keys(Keys.SPACE) # 空格
 # send_keys(Keys.ESCAPE) # 回退键 esc
 
+# 清除已有账号的登录信息
+driver.find_element_by_id("account").clear()
+driver.find_element_by_id("password").clear()
+
+# 使用 tab 键把焦点定位到用户名
+driver.find_element_by_id("account").send_keys(Keys.TAB)
+
+# 就是 Ctrl + a 全选
+driver.find_element_by_id("account").send_keys(Keys.CONTROL, 'a')
+
+# 就是 Ctrl + x 剪贴
+driver.find_element_by_id("account").send_keys(Keys.CONTROL, 'x')
+
+b = driver.find_element_by_id("su")
+# 双击
+ActionChains(driver).double_click(b).perform()
+
+# 右击
+ActionChains(driver).context_click(b).perform()
 
 # driver.implicitly_wait() 表示只能等待，等待的元素出现了，就不等了
 # driver.implicitly_wait(5)
