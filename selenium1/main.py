@@ -107,6 +107,36 @@ ActionChains(driver).double_click(b).perform()
 # 右击
 ActionChains(driver).context_click(b).perform()
 
+# 勾选 checkbox 通过 id 来定位
+driver.find_element_by_id("c1").click()
+driver.find_element_by_id("c2").click()
+driver.find_element_by_id("c3").click()
+
+# 勾选 checkbox 通过一组来定位 id 为 input 的元素
+buttons = driver.find_element_by_tag_name("input")
+for button in buttons:
+    if button.get_attribute('type') == 'checkbox':
+        button.click()
+time.sleep(6)
+
+
+# 层级定位，就是弹框上面的层级
+driver.find_element_by_link_text("Link1").click() # 定位 link1 并且点击
+driver.implicitly_wait(10)
+action = driver.find_element_by_link_text("Another action") # 定位 Another action
+ActionChains(driver).move_to_element(action).perform() # 高亮显示 Another action，并且把鼠标
+
+# 使用 xpath 来定位
+driver.find_element_by_xpath("//*[@id='wikiWidgetContainer']/div[2]/a[1]/div").click()
+options = driver.find_element_by_tag_name("option")
+for option in options:
+    if option.get_attribute('value') == '10.69':
+        option.click()
+
+options[2].click() # 这个是直接定位第几个下拉框元素，就是通过数组的方式
+
+
+
 # driver.implicitly_wait() 表示只能等待，等待的元素出现了，就不等了
 # driver.implicitly_wait(5)
 
