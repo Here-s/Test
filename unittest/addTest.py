@@ -1,3 +1,6 @@
+import HTMLTestRunner
+import sys
+
 from selenium import webdriver
 import unittest
 import time
@@ -26,13 +29,37 @@ def creatSuit():
 
     # 把一个文件夹下以某种形式命名（正则表达式匹配的）的所有文件中的测试用例都加载到测试套件中
     #  通过 discover 来完成
-    discover = unittest.defaultTestLoader.discover("../unittest", pattern="main.py", top_level_dir=None)
-    return discover
+    discovers = unittest.defaultTestLoader.discover("../unittest", pattern="main.py", top_level_dir=None)
+    print(discovers)
+    return discovers
 
 
-    return suit
+    # return suit
 
 if __name__ == "__main__":
-    suit = creatSuit()
-    runner = unittest.TextTestRunner(verbosity=2)
-    runner.run(suit)
+
+    # 创建 HTMl 文件路径
+    curpath = sys.path[0]
+    print(sys.path)
+    print(sys.path[0])
+
+    # 1、创建文件夹
+    if not os.path.exists(curpath+'/resultReport'):
+        os.makedirs(curpath+'/resultReport')
+
+    # 2、文件夹的命名，不能让名称重复，用时间来命名
+    now = time.strftime("%Y-%m-%d-%H %M %S", time.localtime(time.time()))
+    print(now)
+    print(time.time())
+    print(time.localtime(time.time()))
+
+    # 3、文件名
+    filename = curpath + '/resultReport/' + now + 'resultReport.html'
+
+    with open(filename, 'wb') as fp:
+        runner = HTMLTestRunner.HTMLTestRunner(stream=fp, title=u"测试报告",
+                                                description=u"用例执行情况", verbosity=2)
+
+    suite = creatSuit()
+    # runner = unittest.TextTestRunner(verbosity=2)
+    runner.run(suite)

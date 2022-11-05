@@ -38,10 +38,18 @@ class Baidu(unittest.TestCase):
         driver = self.driver
         url = self.url
         driver.get(url)
-        self.assertTrue("百度一下，你就知道" == driver.title, msg="不一致！！")
+        # self.assertTrue("百度一下，你就知道" == driver.title, msg="不一致！！")
         driver.find_element_by_id("kw").send_keys("突如其来的疫情")
         driver.find_element_by_id("su").submit()
         time.sleep(5)
+
+        # 断言，结果不符的时候，就会异常输出
+        # assertEqual  预期结果，实际结果，异常输出
+        # assertNotEqual  预期结果，实际结果，异常输出
+        # assertTrue  预期结果==实际结果，异常信息
+        # assertTrue  预期结果==实际结果，异常信息
+        # self.assertEquals("啦啦啦", driver.title, msg="实际结果与预期不一致") # 前面是预期结果，后面是实际结果
+
         print(driver.title)
         try:
             self.assertNotEqual(driver.title,"突如其来的疫情_百度搜索", msg="实际结果和预期不符！！")
