@@ -52,11 +52,12 @@ class Baidu(unittest.TestCase):
 
         print(driver.title)
         try:
-            self.assertNotEqual(driver.title,"突如其来的疫情_百度搜索", msg="实际结果和预期不符！！")
+            self.assertNotEqual(driver.title, "突如其来的疫情_百度搜索", msg="实际结果和预期不符！！")
         except:
             self.saveScreenAsPhoto(driver, 'haohao.png')
         time.sleep(6)
 
+    # 错误截图
     def saveScreenAsPhoto(self, driver, file_name):
         if not os.path.exists("./image"):
             os.makedirs("./image")
